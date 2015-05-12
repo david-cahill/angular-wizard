@@ -256,7 +256,7 @@ angular.module('mgo-angular-wizard').directive('wizard', function() {
                     stepTo = _.findWhere($scope.steps, {title: step});
                 }
                 //going to step
-                $scope.goTo(stepTo);
+                $scope.goTo(stepTo, markPreviousStepsAsComplete);
             };
 
             //calls finish() which calls onFinish() which is declared on an attribute and linked to controller via wizard directive.
