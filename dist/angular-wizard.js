@@ -127,7 +127,6 @@ angular.module('mgo-angular-wizard').directive('wizard', function() {
             };
 
             $scope.goTo = function(step, markPreviousStepsAsComplete) {
-                markPreviousStepsAsComplete = markPreviousStepsAsComplete || false;
                 //if this is the first time the wizard is loading it bi-passes step validation
                 if(firstRun){
                     //deselect all steps so you can set fresh below
@@ -246,7 +245,8 @@ angular.module('mgo-angular-wizard').directive('wizard', function() {
             };
 
             //used to traverse to any step, step number placed as argument
-            this.goTo = function(step) {
+            this.goTo = function(step, markPreviousStepsAsComplete) {
+                markPreviousStepsAsComplete = markPreviousStepsAsComplete || false;
                 var stepTo;
                 //checking that step is a Number
                 if (_.isNumber(step)) {
