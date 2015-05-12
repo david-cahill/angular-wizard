@@ -126,7 +126,8 @@ angular.module('mgo-angular-wizard').directive('wizard', function() {
                 return _.indexOf($scope.steps, step) + 1;
             };
 
-            $scope.goTo = function(step) {
+            $scope.goTo = function(step, markPreviousStepsAsComplete) {
+                markPreviousStepsAsComplete = markPreviousStepsAsComplete || false;
                 //if this is the first time the wizard is loading it bi-passes step validation
                 if(firstRun){
                     //deselect all steps so you can set fresh below
@@ -181,6 +182,13 @@ angular.module('mgo-angular-wizard').directive('wizard', function() {
                         //$log.log('current step number: ', $scope.currentStepNumber());
                     } else {
                         return;
+                    }
+                }
+
+                if(markPreviousStepsAsComplete) {
+                    var currentStepIndex = $scope.steps.indexOf(_.find($scope.steps, function (step, index) { if(step.title === $scope.currentStep) return index; }));
+                    for(var i = currentStepIndex - 1; i > -1; i--) {
+                        $scope.steps[i].completed = true;
                     }
                 }
             };
